@@ -171,7 +171,7 @@ let coord = function (x, y) {
 
 let lightBlock = function () {
     let block = pattern();
-    block.add(rectangle(50, 50, vector(0,0), "#ddd"));
+    block.add(rectangle(50, 50, vector(0,0), "#eee"));
     block.add(rectangle(45, 45, vector(0,0), "#fff"));
     return block;
 };
@@ -203,19 +203,47 @@ let roundedRec = function (w, h, r, pos, color, id) {
     return rect;
 };
 
+let target = function () {
+    let tar = pattern("target");
+    tar.add(circle(20, vector(25, 25), '#c00'));
+    tar.add(circle(15, vector(25, 25), '#fff'));
+    tar.add(line(vector(25,0), vector(25, 50), 5, '#c00'));
+    tar.add(line(vector(0,25), vector(50, 25), 5, '#c00'));
+    return tar;
+};
+
+let player = function () {
+    let play = pattern("playget");
+    play.add(circle(20, vector(25, 25), '#9e5b00'));
+    play.add(circle(15, vector(25, 25), '#f98a00'));
+    return play;
+};
+
 for(let i = 0; i < 32; i++)
 {
-    for(let j = 0; j < 16; j++)
+    for(let j = 0; j < 18; j++)
     {
         e.add(lightBlock(), coord(i, j));
     }
 }
-
+e.add(roundedRec(1570, 110, 10, vector(15, 775), '#ccc'));
 e.add(barrier(coord(0, 0), coord(31, 0)));
 e.add(barrier(coord(0, 15), coord(31, 15)));
 e.add(barrier(coord(0, 0), coord(0, 15)));
 e.add(barrier(coord(31, 0), coord(31, 15)));
-e.add(roundedRec(1590, 90, 20, vector(5, 805), '#ccc'));
+
+
+// Walls
+e.add(barrier(coord(25, 5), coord(15, 5)));
+e.add(barrier(coord(10, 10), coord(15, 5)));
+e.add(barrier(coord(10, 10), coord(10, 15)));
+
+// Player
+e.add(player(), coord(30, 14));
+
+
+// Target
+e.add(target(), coord(1, 1));
 
 e.render();
 console.log(e);
